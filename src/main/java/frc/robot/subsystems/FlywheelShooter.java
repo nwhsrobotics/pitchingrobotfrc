@@ -36,7 +36,7 @@ public class FlywheelShooter extends SubsystemBase {
         this.starwheelEncoder = starwheelEncoder;
 
         pidController = new PIDController(0, 0, 0);//change these to change the pid values
-        pidController.setTolerance(50);  // RPM tolerance
+        pidController.setTolerance(50);  // tolerance +50, -50
     }
 
     public void startFlywheel(double rpm) {
