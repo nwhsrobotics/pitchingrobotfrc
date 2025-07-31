@@ -35,13 +35,17 @@ public class FlywheelShooter extends SubsystemBase {
         this.starwheelMotor = starwheelMotor;
         this.starwheelEncoder = starwheelEncoder;
 
-        pidController = new PIDController(0.01, 0.001, 0.005);
+        pidController = new PIDController(0, 0, 0);//change these to change the pid values
         pidController.setTolerance(50);  // RPM tolerance
     }
 
     public void startFlywheel(double rpm) {
         targetRPM = rpm;
     }
+
+    public void testFireAtLowPower() {
+    flywheelMotor.set(0.1); // 10% power, start low
+}
 
     public void stopFlywheel() {
         targetRPM = 0;
@@ -76,7 +80,11 @@ public class FlywheelShooter extends SubsystemBase {
 
     // Get current RPM from encoder
     public double getCurrentRPM() {
-        return flywheelEncoder.getRate() * 60;
+        return (flywheelEncoder.getVelocity() + flywheelEncoder2.getVelocity()) / 2.0;
+    }
+
+    public void isFeeding() {
+        System.out.println("is the feeder feeeding?: " + feeding);
     }
 
     public boolean isAtSpeed() {
