@@ -7,14 +7,16 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.FlywheelShooter;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+
 import edu.wpi.first.wpilibj.Encoder;
-import frc.robot.commands.ShootWhenReady;
+import frc.robot.commands.ShootWhenReadyCommand;
 
 
 
@@ -40,12 +42,12 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Create motor controllers
-    CANSparkMax flywheelMotor1 = new CANSparkMax(5, MotorType.kBrushless);  // adjust CAN IDs
-    CANSparkMax flywheelMotor2 = new CANSparkMax(6, MotorType.kBrushless);  // adjust as needed
+    SparkMax flywheelMotor1 = new SparkMax(5, MotorType.kBrushless);  // adjust CAN IDs
+    SparkMax flywheelMotor2 = new SparkMax(6, MotorType.kBrushless);  // adjust as needed
     RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
     RelativeEncoder encoder2 = flywheelMotor2.getEncoder();
 
-    CANSparkMax starwheelMotor = new CANSparkMax(7, MotorType.kBrushless);  // adjust ID
+    SparkMax starwheelMotor = new SparkMax(7, MotorType.kBrushless);  // adjust ID
     Encoder starwheelEncoder = new Encoder(0, 1); // digital ports A/B
 
     flywheelShooter = new FlywheelShooter(flywheelMotor1, encoder1, flywheelMotor2, encoder2,
@@ -74,7 +76,7 @@ public class RobotContainer {
     );
 
 
-    m_driverController.b().onTrue(new ShootWhenReady(flywheelShooter));
+    m_driverController.b().onTrue(new ShootWhenReadyCommand(flywheelShooter));
 
 
 

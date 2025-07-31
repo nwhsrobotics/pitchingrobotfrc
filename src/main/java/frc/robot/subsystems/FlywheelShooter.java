@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import com.revrobotics.RelativeEncoder;
@@ -26,12 +27,12 @@ public class FlywheelShooter extends SubsystemBase {
 
     private double targetRPM = 0;
 
-    public FlywheelShooter(MotorController flywheelMotor, Encoder flywheelEncoder, MotorController flywheelMotor2, Encoder flywheelEncoder2,
+    public FlywheelShooter(MotorController flywheelMotor, RelativeEncoder encoder1, MotorController flywheelMotor2, RelativeEncoder encoder2,
                            MotorController starwheelMotor, Encoder starwheelEncoder) {// do i have to add two fly wheel motors?
         this.flywheelMotor = flywheelMotor;
-        this.flywheelEncoder = flywheelEncoder;
+        this.flywheelEncoder = encoder1;
         this.flywheelMotor2 = flywheelMotor2;
-        this.flywheelEncoder2 = flywheelEncoder2;
+        this.flywheelEncoder2 = encoder2;
         this.starwheelMotor = starwheelMotor;
         this.starwheelEncoder = starwheelEncoder;
 
@@ -83,8 +84,9 @@ public class FlywheelShooter extends SubsystemBase {
         return (flywheelEncoder.getVelocity() + flywheelEncoder2.getVelocity()) / 2.0;
     }
 
-    public void isFeeding() {
+    public boolean isFeeding() {
         System.out.println("is the feeder feeeding?: " + feeding);
+        return feeding;
     }
 
     public boolean isAtSpeed() {

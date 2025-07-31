@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FlywheelShooter;
 
 
-public class ShootWhenReady extends Command {
+public class ShootWhenReadyCommand extends Command {
     private final FlywheelShooter shooter;
     private boolean hasFed = false;
 
-    public ShootWhenReady(FlywheelShooter shooter) {
+    public ShootWhenReadyCommand(FlywheelShooter shooter) {
         this.shooter = shooter;
         addRequirements(shooter);
     }

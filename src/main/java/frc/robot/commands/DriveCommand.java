@@ -1,10 +1,10 @@
-package main.java.frc.robot.commands;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 
-public class DriveCommand extends CommandBase{
+public class DriveCommand extends Command{
     private final DriveBaseSubsystem drivebase;
     private final XboxController controller;
 
