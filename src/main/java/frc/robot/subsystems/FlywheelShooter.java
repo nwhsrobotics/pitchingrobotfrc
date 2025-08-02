@@ -6,7 +6,6 @@ import frc.robot.Constants;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Timer;
 import com.revrobotics.spark.SparkLowLevel.MotorType;//is this needed? ask mr wheeler
 
 public class FlywheelShooter extends SubsystemBase {
@@ -38,6 +37,7 @@ public class FlywheelShooter extends SubsystemBase {
 
         pidController = new PIDController(0.0008, 0, 0.0001);//change these to change the pid values
         pidController.setTolerance(50);  // tolerance +50, -50
+        startFlywheel(528); 
     }
 
     public void startFlywheel(double rpm) {
