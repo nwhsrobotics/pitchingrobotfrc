@@ -21,16 +21,10 @@ public class ShootWhenReadyCommand extends Command {
     @Override
     public void execute() {
         if (shooter.isAtSpeed() && !hasFed) {
-            shooter.feedBall();
             hasFed = true;
         }
     }
 
-    @Override
-    public boolean isFinished() {
-        // end once we've fed the ball and the shooter is not feeding
-        return hasFed && !shooter.isFeeding();
-    }
 
     @Override
     public void end(boolean interrupted) {

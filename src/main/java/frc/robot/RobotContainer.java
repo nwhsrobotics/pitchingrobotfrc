@@ -15,7 +15,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
-import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.commands.ShootWhenReadyCommand;
 
 
@@ -33,6 +32,11 @@ import frc.robot.commands.ShootWhenReadyCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final FlywheelShooter flywheelShooter;
+  private final SparkMax flywheelMotor1 = new SparkMax(1, MotorType.kBrushless);
+  private final SparkMax flywheelMotor2 = new SparkMax(2, MotorType.kBrushless);
+  private final RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
+  private final RelativeEncoder encoder2 = flywheelMotor2.getEncoder();
+
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -41,10 +45,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Create motor controllers
 
-    flywheelShooter = new FlywheelShooter(flywheelMotor1, encoder1, flywheelMotor2, encoder2,
-                                           starwheelMotor, starwheelEncoder);
+    //flywheelShooter = new FlywheelShooter(flywheelMotor1, encoder1, flywheelMotor2, encoder2); do i use this one?
+    flywheelShooter = new FlywheelShooter();
 
     configureBindings();
 }

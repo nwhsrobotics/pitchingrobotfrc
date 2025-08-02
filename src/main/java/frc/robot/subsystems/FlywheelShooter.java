@@ -1,47 +1,42 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants;
+
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
+import com.revrobotics.spark.SparkLowLevel.MotorType;//is this needed? ask mr wheeler
 
 public class FlywheelShooter extends SubsystemBase {
-
-    private final MotorController flywheelMotor;
+    /*
+     * private final MotorController flywheelMotor;
     private final MotorController flywheelMotor2;
+     */
+    private final SparkMax flywheelMotor;
+    private final SparkMax flywheelMotor2;
     private final RelativeEncoder flywheelEncoder;
     private final RelativeEncoder flywheelEncoder2;
-
-    private final MotorController starwheelMotor;
-    private final Encoder starwheelEncoder;  // Optional, for precise rotation control
-
-    private final double feedRotationDegrees = 90;  // How much starwheel rotates to feed ball
-    private boolean feeding = false;
-    private double feedStartTime = 0;
-
-    private final double feedMotorSpeed = 0.5;  // Adjust motor speed to rotate starwheel
 
     private final PIDController pidController;
 
     private double targetRPM = 0;
 
-    public FlywheelShooter(MotorController flywheelMotor, RelativeEncoder encoder1, MotorController flywheelMotor2, RelativeEncoder encoder2,
-                           MotorController starwheelMotor, Encoder starwheelEncoder) {// do i have to add two fly wheel motors?
-        this.flywheelMotor = flywheelMotor;
+    public FlywheelShooter() {// do i have to add two fly wheel motors?
+       /*
+        * this.flywheelMotor = firstmotor;
         this.flywheelEncoder = encoder1;
-        this.flywheelMotor2 = flywheelMotor2;
-        this.flywheelEncoder2 = encoder2;
-        this.starwheelMotor = starwheelMotor;
-        this.starwheelEncoder = starwheelEncoder;
+        this.flywheelMotor2 = secondmotor;
+        this.flywheelEncoder2 = encoder2; do i need this
+        */ 
 
-        flywheelMotor1 = new SparkMax(5, MotorType.kBrushless);  // adjust CAN IDs
-        flywheelMotor2 = new SparkMax(6, MotorType.kBrushless);  // adjust as needed
-        encoder1 = flywheelMotor1.getEncoder();
-        encoder2 = flywheelMotor2.getEncoder();
+        flywheelMotor = new SparkMax(16, MotorType.kBrushless);  // adjust CAN IDs
+        flywheelMotor2 = new SparkMax(18, MotorType.kBrushless);  // adjust as needed
+        flywheelEncoder = flywheelMotor.getEncoder();
+        flywheelEncoder2 = flywheelMotor2.getEncoder();
 
-        pidController = new PIDController(0, 0, 0);//change these to change the pid values
+        pidController = new PIDController(0.0008, 0, 0.0001);//change these to change the pid values
         pidController.setTolerance(50);  // tolerance +50, -50
     }
 
@@ -51,10 +46,12 @@ public class FlywheelShooter extends SubsystemBase {
 
     public void testFireAtLowPower() {
     flywheelMotor.set(0.1); // 10% power, start low
+    flywheelMotor2.set(-0.1);
 }
 
     public void stopFlywheel() {
         targetRPM = 0;
+        flywheelMotor.set(0);
         flywheelMotor.set(0);
     }
 
@@ -67,21 +64,14 @@ public class FlywheelShooter extends SubsystemBase {
             double output = pidController.calculate(currentRPM, targetRPM);
             output = Math.min(Math.max(output, 0), 1);
             flywheelMotor.set(output);
+            flywheelMotor2.set(-output);
+
         } else {
             flywheelMotor.set(0);
+            flywheelMotor2.set(0);
         }
 
         // Feeding control
-        if (feeding) {
-            double elapsed = Timer.getFPGATimestamp() - feedStartTime;
-            // Simple time-based feed control - adjust time for 90 deg rotation
-            if (elapsed < getFeedDurationSeconds()) {
-                starwheelMotor.set(feedMotorSpeed);
-            } else {
-                starwheelMotor.set(0);
-                feeding = false;
-            }
-        }
     }
 
     // Get current RPM from encoder
@@ -89,28 +79,13 @@ public class FlywheelShooter extends SubsystemBase {
         return (flywheelEncoder.getVelocity() + flywheelEncoder2.getVelocity()) / 2.0;
     }
 
-    public boolean isFeeding() {
-        System.out.println("is the feeder feeeding?: " + feeding);
-        return feeding;
-    }
+
 
     public boolean isAtSpeed() {
         return pidController.atSetpoint();
     }
 
-    //feeding ball by rotation of 90 degrees
-    public void feedBall() {
-        if (!feeding) {
-            feeding = true;
-            feedStartTime = Timer.getFPGATimestamp();
-        }
-    }
 
-    //amoiunt of time itll take to switch the ball from the star wheel to the motor
-    private double getFeedDurationSeconds() {
-        ///need to test
-        return 0.5;  
-    }
 }
 
 /*
