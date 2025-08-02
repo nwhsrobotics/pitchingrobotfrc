@@ -36,6 +36,11 @@ public class FlywheelShooter extends SubsystemBase {
         this.starwheelMotor = starwheelMotor;
         this.starwheelEncoder = starwheelEncoder;
 
+        flywheelMotor1 = new SparkMax(5, MotorType.kBrushless);  // adjust CAN IDs
+        flywheelMotor2 = new SparkMax(6, MotorType.kBrushless);  // adjust as needed
+        encoder1 = flywheelMotor1.getEncoder();
+        encoder2 = flywheelMotor2.getEncoder();
+
         pidController = new PIDController(0, 0, 0);//change these to change the pid values
         pidController.setTolerance(50);  // tolerance +50, -50
     }

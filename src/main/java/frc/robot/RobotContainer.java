@@ -42,13 +42,6 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Create motor controllers
-    SparkMax flywheelMotor1 = new SparkMax(5, MotorType.kBrushless);  // adjust CAN IDs
-    SparkMax flywheelMotor2 = new SparkMax(6, MotorType.kBrushless);  // adjust as needed
-    RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
-    RelativeEncoder encoder2 = flywheelMotor2.getEncoder();
-
-    SparkMax starwheelMotor = new SparkMax(7, MotorType.kBrushless);  // adjust ID
-    Encoder starwheelEncoder = new Encoder(0, 1); // digital ports A/B
 
     flywheelShooter = new FlywheelShooter(flywheelMotor1, encoder1, flywheelMotor2, encoder2,
                                            starwheelMotor, starwheelEncoder);
