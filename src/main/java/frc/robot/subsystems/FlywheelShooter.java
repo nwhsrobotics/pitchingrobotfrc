@@ -30,8 +30,8 @@ public class FlywheelShooter extends SubsystemBase {
         this.flywheelEncoder2 = encoder2; do i need this
         */ 
 
-        flywheelMotor = new SparkMax(16, MotorType.kBrushless);  // adjust CAN IDs
-        flywheelMotor2 = new SparkMax(18, MotorType.kBrushless);  // adjust as needed
+        flywheelMotor = new SparkMax(18, MotorType.kBrushless);  // adjust CAN IDs
+        flywheelMotor2 = new SparkMax(16, MotorType.kBrushless);  // adjust as needed
         flywheelEncoder = flywheelMotor.getEncoder();
         flywheelEncoder2 = flywheelMotor2.getEncoder();
 
