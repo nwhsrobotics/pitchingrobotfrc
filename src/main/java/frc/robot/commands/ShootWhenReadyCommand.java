@@ -20,9 +20,6 @@ public class ShootWhenReadyCommand extends Command {
 
     @Override
     public void execute() {
-        if (shooter.isAtSpeed() && !hasFed) {
-            hasFed = true;
-        }
     }
 
 

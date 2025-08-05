@@ -26,6 +26,15 @@ public final class Constants {
       public static final double INCHES_PER_MILE = 5280.0 * 12.0;
       public static final double INCHES_PER_REV = Math.PI * 8.0; // 8 in pneumatic wheels
 
+      public static final double MPH_TO_RPM = Constants.CANAssignments.INCHES_PER_MILE / Constants.CANAssignments.MIN_PER_HOUR / Constants.CANAssignments.INCHES_PER_REV;
+
+
+      public static final double MAX_VELOCITY_MPH = 60.0;
+      public static final double MAX_VELOCITY_RPM = MAX_VELOCITY_MPH * MPH_TO_RPM;
+
+      public static final double MAX_ACCEL_RPM_S = 1000;
+
+
       
 
       public static final int FRONT_LEFT_STEER_MOTOR_ID = 8;

@@ -1,18 +1,16 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Constants.CANAssignments;
-import frc.robot.subsystems.RobotCanUtils.CANSparkMaxController;
-import frc.robot.subsystems.RobotCanUtils.MotorKind;
-
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.PIDController;
-import com.revrobotics.spark.SparkLowLevel.MotorType;//is this needed? ask mr wheeler
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.RobotCanUtils.CANSparkMaxController;
+import frc.robot.subsystems.RobotCanUtils.MotorKind;
 
 public class FlywheelShooter extends SubsystemBase {
     /*
@@ -21,12 +19,11 @@ public class FlywheelShooter extends SubsystemBase {
      */
 
 
-    private final PIDController pidController;
 
     private final SparkMaxConfig configEl = new SparkMaxConfig();
 
-    private final CANSparkMaxController flywheelMotor = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake, 0.8, 0.0, 0.0, ElevatorConstants.MAX_VELOCITY_RPM, ElevatorConstants.MAX_ACCEL_RPM_S, 0.02 / ElevatorConstants.ELEVATOR_MOTOR_ENCODER_ROT2METER, 11.0);
-    private final CANSparkMaxController flywheelMotor2 = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR2_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake, 0.8, 0.0, 0.0, ElevatorConstants.MAX_VELOCITY_RPM, ElevatorConstants.MAX_ACCEL_RPM_S, 0.02 / ElevatorConstants.ELEVATOR_MOTOR_ENCODER_ROT2METER, 11.0);
+    private final CANSparkMaxController flywheelMotor = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake, 0.1, 0.0, 0.0, Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20, 11.0);
+    private final CANSparkMaxController flywheelMotor2 = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR2_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake, 0.1, 0.0, 0.0,  Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20 , 11.0);
 
     private final RelativeEncoder flywheelEncoder;
     private final RelativeEncoder flywheelEncoder2;
@@ -50,15 +47,13 @@ public class FlywheelShooter extends SubsystemBase {
 
         // Make second flywheel follow, inverted
         //flywheelMotor2.follow(flywheelMotor, true);
-
-        pidController = new PIDController(0.0100, 0, 0.0001);//change these to change the pid values
-        pidController.setTolerance(10);  // tolerance +50, -50
+        //change these to change the pid values
         stopFlywheel(); 
     }
 
 
     public void startFlywheel(double mph) {
-        targetRPM = Constants.CANAssignments.INCHES_PER_MILE * mph / Constants.CANAssignments.MIN_PER_HOUR / Constants.CANAssignments.INCHES_PER_REV;
+        targetRPM = mph * Constants.CANAssignments.MPH_TO_RPM;
     }
 
     public void testFireAtLowPower() {
@@ -78,12 +73,11 @@ public class FlywheelShooter extends SubsystemBase {
         // Flywheel control
         if (targetRPM > 0) {
             double currentRPM = getCurrentRPM();
-            double output = pidController.calculate(currentRPM, targetRPM);
-            output = Math.min(Math.max(output, 0), 1);
-            flywheelMotor.set(output);
-            flywheelMotor2.set(-output);
-            System.out.printf("curr RPM: %f, output: %f\n", currentRPM, output);
-
+            //output = Math.min(Math.max(output, 0), 1);
+            flywheelMotor.getClosedLoopController().setReference(targetRPM, ControlType.kVelocity);
+            flywheelMotor2.getClosedLoopController().setReference(-targetRPM, ControlType.kVelocity);
+            SmartDashboard.putNumber("currentRPM", currentRPM);
+            SmartDashboard.putNumber("targetRPM", targetRPM);
         } else {
             flywheelMotor.set(0);
             flywheelMotor2.set(0);
@@ -99,9 +93,9 @@ public class FlywheelShooter extends SubsystemBase {
 
 
 
-    public boolean isAtSpeed() {
-        return pidController.atSetpoint();
-    }
+    //public boolean isAtSpeed() {
+       
+    //}
 
 
 }
