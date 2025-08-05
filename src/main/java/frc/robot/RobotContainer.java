@@ -31,7 +31,7 @@ import frc.robot.commands.ShootWhenReadyCommand;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final FlywheelShooter flywheelShooter;
+  public final FlywheelShooter flywheelShooter;
   private final SparkMax flywheelMotor1 = new SparkMax(1, MotorType.kBrushless);
   private final SparkMax flywheelMotor2 = new SparkMax(2, MotorType.kBrushless);
   private final RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
