@@ -35,13 +35,17 @@ public class FlywheelShooter extends SubsystemBase {
         flywheelEncoder = flywheelMotor.getEncoder();
         flywheelEncoder2 = flywheelMotor2.getEncoder();
 
-        pidController = new PIDController(0.0008, 0, 0.0001);//change these to change the pid values
-        pidController.setTolerance(50);  // tolerance +50, -50
-        startFlywheel(528); 
+        pidController = new PIDController(0.0100, 0, 0.0001);//change these to change the pid values
+        pidController.setTolerance(10);  // tolerance +50, -50
+        stopFlywheel(); 
     }
 
-    public void startFlywheel(double rpm) {
-        targetRPM = rpm;
+    public static final double MIN_PER_HOUR = 60.0;
+    public static final double INCHES_PER_MILE = 5280.0 * 12.0;
+    public static final double INCHES_PER_REV = 2.0 * Math.PI * 8.0; // 8 in pneumatic wheels
+
+    public void startFlywheel(double mph) {
+        targetRPM = INCHES_PER_MILE * mph / MIN_PER_HOUR / INCHES_PER_REV;
     }
 
     public void testFireAtLowPower() {
@@ -65,6 +69,7 @@ public class FlywheelShooter extends SubsystemBase {
             output = Math.min(Math.max(output, 0), 1);
             flywheelMotor.set(output);
             flywheelMotor2.set(-output);
+            System.out.printf("curr RPM: %f, output: %f\n", currentRPM, output);
 
         } else {
             flywheelMotor.set(0);

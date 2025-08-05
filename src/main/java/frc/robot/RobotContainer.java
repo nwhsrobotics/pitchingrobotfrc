@@ -49,8 +49,28 @@ public class RobotContainer {
     //flywheelShooter = new FlywheelShooter(flywheelMotor1, encoder1, flywheelMotor2, encoder2); do i use this one?
     flywheelShooter = new FlywheelShooter();
 
-}
+    configureBindings();
+  }
 
+  /**
+   * Use this method to define your trigger->command mappings. Triggers can be created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * predicate, or via the named factories in {@link
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
+   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * joysticks}.
+   */
+  private void configureBindings() {
+    m_driverController.a().onTrue(
+      Commands.runOnce(() -> flywheelShooter.startFlywheel(60.0), flywheelShooter)//change this to change RPM
+    );
 
- 
+    m_driverController.a().onFalse(
+        Commands.runOnce(() -> flywheelShooter.stopFlywheel(), flywheelShooter)
+    );
+
+    m_driverController.b().onTrue(new ShootWhenReadyCommand(flywheelShooter));
+  }
+
 }
