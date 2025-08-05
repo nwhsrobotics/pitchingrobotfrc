@@ -20,6 +20,8 @@ public class FlywheelShooter extends SubsystemBase {
     private final MotorController flywheelMotor2;
      */
 
+    public static double rpmNotStatic;
+
 
     private final PIDController pidController;
 
@@ -90,6 +92,7 @@ public class FlywheelShooter extends SubsystemBase {
         }
 
         // Feeding control
+        rpmNotStatic = getCurrentRPM();
     }
 
     // Get current RPM from encoder
