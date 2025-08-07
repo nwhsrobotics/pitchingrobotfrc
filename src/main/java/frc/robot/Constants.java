@@ -17,10 +17,6 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
     public static final class CANAssignments {
-      public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 6;
-      public static final int BACK_LEFT_DRIVE_MOTOR_ID = 1;
-      public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 10;
-      public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 3;
 
       public static final double MIN_PER_HOUR = 60.0;
       public static final double INCHES_PER_MILE = 5280.0 * 12.0;
@@ -33,6 +29,8 @@ public final class Constants {
       public static final double MAX_VELOCITY_RPM = MAX_VELOCITY_MPH * MPH_TO_RPM;
 
       public static final double MAX_ACCEL_RPM_S = 1000;
+
+      public static final double ff = 0.0005;
 
 
       
@@ -65,12 +63,13 @@ public final class Constants {
       public static final int LEFT_SHOULDER_MOTOR_ID = 17;
       public static final int WRIST_MOTOR_ID = 16;
       public static final int WRIST_INTAKE_ID = 18;
-
+      /* 
       private final double kP = 0.00025;
       private final double kI = 0.0;
       private final double kD = 0.0;
       private final double kFF = 0.00017; // Feedforward gain
       private final double maxRPM = 6000.0;
+      */
       
 
       public static final int PDU_ID = 24;
