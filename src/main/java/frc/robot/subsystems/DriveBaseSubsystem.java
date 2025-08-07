@@ -18,8 +18,8 @@ public class DriveBaseSubsystem extends SubsystemBase{
     private final DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
     public DriveBaseSubsystem() {
-        leftMotor.setInverted(false);//needs to be false because it starts counterclockwise
-        rightMotor.setInverted(true);//needs to be true because it starts clockwise
+        //leftMotor.setInverted(false);//needs to be false because it starts counterclockwise
+        //rightMotor.setInverted(true);//needs to be true because it starts clockwise
     }
 
     public void tankDrive(double leftSpeed, double rightSpeed) {

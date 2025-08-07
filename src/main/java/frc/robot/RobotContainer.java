@@ -5,17 +5,16 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import edu.wpi.first.wpilibj2.command.Command;
+//import frc.robot.commands.Autos;
+//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.FlywheelShooter;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
+//import com.revrobotics.RelativeEncoder;
+//import com.revrobotics.spark.SparkLowLevel.MotorType;
+//import com.revrobotics.spark.SparkMax;
 
-import frc.robot.commands.ShootWhenReadyCommand;
 
 
 
@@ -32,10 +31,10 @@ import frc.robot.commands.ShootWhenReadyCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final FlywheelShooter flywheelShooter;
-  private final SparkMax flywheelMotor1 = new SparkMax(1, MotorType.kBrushless);
-  private final SparkMax flywheelMotor2 = new SparkMax(2, MotorType.kBrushless);
-  private final RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
-  private final RelativeEncoder encoder2 = flywheelMotor2.getEncoder();
+  //private final SparkMax flywheelMotor1 = new SparkMax(1, MotorType.kBrushless);
+  //private final SparkMax flywheelMotor2 = new SparkMax(2, MotorType.kBrushless);
+  //private final RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
+  //private final RelativeEncoder encoder2 = flywheelMotor2.getEncoder();
 
 
 
@@ -70,7 +69,6 @@ public class RobotContainer {
         Commands.runOnce(() -> flywheelShooter.stopFlywheel(), flywheelShooter)
     );
 
-    m_driverController.b().onTrue(new ShootWhenReadyCommand(flywheelShooter));
   }
 
 }

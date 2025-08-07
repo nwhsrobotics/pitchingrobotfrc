@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.LEDPattern.GradientType;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
+//import frc.robot.RobotContainer;
 
 public class LEDSubsystem extends SubsystemBase {
 
@@ -26,10 +26,10 @@ public class LEDSubsystem extends SubsystemBase {
   private static final LEDPattern IDLE = LEDPattern.gradient(GradientType.kDiscontinuous, Color.kBlack, Color.kBlack, ORANGE, Color.kBlack, Color.kBlack, ORANGE, Color.kBlack, Color.kBlack, ORANGE);
   
   private static final LEDPattern BASE_PATTERN = LEDPattern.gradient(GradientType.kDiscontinuous, Color.kBlack, ORANGE);
-  private static final LEDPattern CHARGEUP = BASE_PATTERN.mask(LEDPattern.progressMaskLayer(() -> FlywheelShooter.rpmNotStatic / ));
+  private static final LEDPattern CHARGEUP = BASE_PATTERN.mask(LEDPattern.progressMaskLayer(() -> FlywheelShooter.rpmNotStatic ));
 
   private static final LEDPattern BASE_PATTERN2 = LEDPattern.gradient(GradientType.kDiscontinuous, ORANGE, Color.kBlack); 
-  private static final LEDPattern CHARGEDOWN = BASE_PATTERN2.mask(LEDPattern.progressMaskLayer(() -> FlywheelShooter.rpmNotStatic / ));
+  private static final LEDPattern CHARGEDOWN = BASE_PATTERN2.mask(LEDPattern.progressMaskLayer(() -> FlywheelShooter.rpmNotStatic ));
   
   static {
     strip.setLength(buffer.getLength());
