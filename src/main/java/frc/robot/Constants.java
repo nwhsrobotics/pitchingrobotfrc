@@ -28,9 +28,11 @@ public final class Constants {
       public static final double MAX_VELOCITY_MPH = 60.0;
       public static final double MAX_VELOCITY_RPM = MAX_VELOCITY_MPH * MPH_TO_RPM;
 
-      public static final double MAX_ACCEL_RPM_S = 1000;
+      public static final double MAX_ACCEL_RPM_S = 500;
 
       public static final double ff = 0.0005;
+
+      public static final double OUTPUT_PER_RPM = 0.000179;
 
 
       
