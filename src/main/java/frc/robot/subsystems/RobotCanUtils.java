@@ -104,6 +104,40 @@ public final class RobotCanUtils {
             applySettings(cfg, kind, mode, 0);
             finishConfigure(this, cfg);
         }
+
+
+
+        public CANSparkFlexController(int id, MotorKind kind, SparkFlexConfig cfg,
+        IdleMode mode, double p, double i, double d,
+        double maxVel, double maxAccel, double err) {
+        super(id, MotorType.kBrushless);
+            clearFaults();
+            applySettings(cfg, kind, mode, 0);
+            cfg.closedLoop
+            .p(p).i(i).d(d)
+            .maxMotion
+            .maxVelocity(maxVel)
+            .maxAcceleration(maxAccel)
+            .allowedClosedLoopError(err);
+            finishConfigure(this, cfg);
+        }
+
+
+
+        public CANSparkFlexController(int id, MotorKind kind, SparkFlexConfig cfg,
+                IdleMode mode, double p, double i, double d,
+                double maxVel, double maxAccel, double err, double voltage) {
+            super(id, MotorType.kBrushless);
+            clearFaults();
+            applySettings(cfg, kind, mode, voltage);
+            cfg.closedLoop
+            .p(p).i(i).d(d)
+            .maxMotion
+            .maxVelocity(maxVel)
+            .maxAcceleration(maxAccel)
+            .allowedClosedLoopError(err);
+            finishConfigure(this, cfg);
+        }
     }
 
     public static class PowerDistributionManager extends PowerDistribution {
