@@ -26,9 +26,12 @@ public class FlywheelShooter extends SubsystemBase {
 
     //public static final double ff = Constants.CANAssignments.ff;
 
+    // Flywheel shooter uses Spark Flex now.
     //having trouble with ff, ask parth
     private final CANSparkFlexController flywheelMotor = new CANSparkFlexController(Constants.CANAssignments.FLYWHEEL_MOTOR_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake,/*need to tune p, just setting it rlly low bc it might help with oscillating prob */ 0.000, 0.0, 0.1, /*Constants.CANAssignments.ff*/  Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20, 11.0);
     private final CANSparkFlexController flywheelMotor2 = new CANSparkFlexController(Constants.CANAssignments.FLYWHEEL_MOTOR2_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake, 0.000, 0.0, 0.0, /*Constants.CANAssignments.ff*/ Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20 , 11.0);
+    // private final CANSparkMaxController flywheelMotor = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR_ID, MotorKind.VORTEX, configEl, IdleMode.kBrake,/*need to tune p, just setting it rlly low bc it might help with oscillating prob */ 0.000, 0.0, 0.1, /*Constants.CANAssignments.ff*/  Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20, 11.0);
+    // private final CANSparkMaxController flywheelMotor2 = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR2_ID, MotorKind.VORTEX, configEl, IdleMode.kBrake, 0.000, 0.0, 0.0, /*Constants.CANAssignments.ff*/ Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20 , 11.0);
 
     
     private final RelativeEncoder flywheelEncoder;
