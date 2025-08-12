@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.FlywheelShooter;
+//import frc.robot.subsystems.LEDSubsystem;
 //import com.revrobotics.RelativeEncoder;
 //import com.revrobotics.spark.SparkLowLevel.MotorType;
 //import com.revrobotics.spark.SparkMax;
@@ -37,6 +38,7 @@ public class RobotContainer {
   public final FlywheelShooter flywheelShooter;
   public final DriveBaseSubsystem driveBase;
   public final IndexSubsystem indexSubsystem;
+  //public final LEDSubsystem leds;
   //private final SparkMax flywheelMotor1 = new SparkMax(1, MotorType.kBrushless);
   //private final SparkMax flywheelMotor2 = new SparkMax(2, MotorType.kBrushless);
   //private final RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
@@ -56,6 +58,7 @@ public class RobotContainer {
     flywheelShooter = new FlywheelShooter();
     driveBase = new DriveBaseSubsystem();
     indexSubsystem = new IndexSubsystem(); 
+    //leds = new LEDSubsystem(Constants.LEDs.PWM_PORT, Constants.LEDs.LENGTH, flywheelShooter);
 
     driveBase.setDefaultCommand(
       new DriveCommand(driveBase, m_driverController)
