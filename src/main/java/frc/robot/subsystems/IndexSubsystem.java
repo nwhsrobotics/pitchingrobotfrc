@@ -13,8 +13,12 @@ public class IndexSubsystem extends SubsystemBase {
   private final SparkMax indexMotor = new SparkMax(Constants.DriveBase.INDEX_MOTOR_ID, MotorType.kBrushless); 
   public RelativeEncoder indexRelativeEncoder = indexMotor.getEncoder(); 
 
-  public void feedBall(){
-    
+  public void feedBallStart(){
+    indexMotor.set(0.1); 
+  }
+
+  public void feedBallStop(){
+    indexMotor.set(0); 
   }
 
 

@@ -85,9 +85,13 @@ public class RobotContainer {
     );
 
     m_driverController.b().onTrue(
-        Commands.runOnce(() -> indexSubsystem.feedBall(), indexSubsystem)
+        Commands.runOnce(() -> indexSubsystem.feedBallStart(), indexSubsystem)
     );
-    
+
+    m_driverController.b().onFalse(
+        Commands.runOnce(() -> indexSubsystem.feedBallStop(), indexSubsystem)
+    );
+
   }
 
 }
