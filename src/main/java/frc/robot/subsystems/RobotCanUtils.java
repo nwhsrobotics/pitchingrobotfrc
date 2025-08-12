@@ -54,6 +54,7 @@ public final class RobotCanUtils {
             applySettings(cfg, kind, mode, voltage);
             finishConfigure(this, cfg);
         }
+        
 
         public CANSparkMaxController(int id, MotorKind kind, IdleMode mode) {
             this(id, kind, new SparkMaxConfig(), mode, 0);
