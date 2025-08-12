@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.FlywheelShooter;
+//import frc.robot.subsystems.LEDSubsystem;
 //import com.revrobotics.RelativeEncoder;
 //import com.revrobotics.spark.SparkLowLevel.MotorType;
 //import com.revrobotics.spark.SparkMax;
+import frc.robot.subsystems.IndexSubsystem;
 
 
 
@@ -35,6 +37,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final FlywheelShooter flywheelShooter;
   public final DriveBaseSubsystem driveBase;
+  public final IndexSubsystem indexSubsystem;
+  //public final LEDSubsystem leds;
   //private final SparkMax flywheelMotor1 = new SparkMax(1, MotorType.kBrushless);
   //private final SparkMax flywheelMotor2 = new SparkMax(2, MotorType.kBrushless);
   //private final RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
@@ -53,6 +57,8 @@ public class RobotContainer {
     //flywheelShooter = new FlywheelShooter(flywheelMotor1, encoder1, flywheelMotor2, encoder2); do i use this one?
     flywheelShooter = new FlywheelShooter();
     driveBase = new DriveBaseSubsystem();
+    indexSubsystem = new IndexSubsystem(); 
+    //leds = new LEDSubsystem(Constants.LEDs.PWM_PORT, Constants.LEDs.LENGTH, flywheelShooter);
 
     driveBase.setDefaultCommand(
       new DriveCommand(driveBase, m_driverController)
@@ -81,6 +87,10 @@ public class RobotContainer {
         Commands.runOnce(() -> flywheelShooter.stopFlywheel(), flywheelShooter)
     );
 
+    m_driverController.b().onTrue(
+        Commands.runOnce(() -> indexSubsystem.feedBall(), indexSubsystem)
+    );
+    
   }
 
 }

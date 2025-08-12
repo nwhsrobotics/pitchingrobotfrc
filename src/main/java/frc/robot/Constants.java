@@ -63,8 +63,8 @@ public final class Constants {
       // DO NOT INITIALIZE THEIR SUBSYSTEMS.
       public static final int RIGHT_SHOULDER_MOTOR_ID = 19;
       public static final int LEFT_SHOULDER_MOTOR_ID = 17;
-      public static final int WRIST_MOTOR_ID = 16;
-      public static final int WRIST_INTAKE_ID = 18;
+      //public static final int WRIST_MOTOR_ID = 16;
+      //public static final int WRIST_INTAKE_ID = 18;
       /* 
       private final double kP = 0.00025;
       private final double kI = 0.0;
@@ -79,6 +79,11 @@ public final class Constants {
 public static class DriveBase{
   public static final int LEFT_MOTOR_ID = 1;//change obv
   public static final int RIGHT_MOTOR_ID = 2;//change obv
+public static final int INDEX_MOTOR_ID = 0;
 
+}
+public static final class LEDs {
+  public static final int PWM_PORT = 8;
+  public static final int LENGTH = 300;
 }
     }
