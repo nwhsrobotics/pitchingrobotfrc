@@ -4,11 +4,13 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.RobotCanUtils.CANSparkFlexController;
 import frc.robot.subsystems.RobotCanUtils.CANSparkMaxController;
 import frc.robot.subsystems.RobotCanUtils.MotorKind;
 //figure out why it is going faster than it is said to be
@@ -20,14 +22,15 @@ public class FlywheelShooter extends SubsystemBase {
      */
 
     public static double rpmNotStatic;
-    private final SparkMaxConfig configEl = new SparkMaxConfig();
+    private final SparkFlexConfig configEl = new SparkFlexConfig();
 
     //public static final double ff = Constants.CANAssignments.ff;
 
     //having trouble with ff, ask parth
-    private final CANSparkMaxController flywheelMotor = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake,/*need to tune p, just setting it rlly low bc it might help with oscillating prob */ 0.000, 0.0, 0.1, /*Constants.CANAssignments.ff*/  Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20, 11.0);
-    private final CANSparkMaxController flywheelMotor2 = new CANSparkMaxController(Constants.CANAssignments.FLYWHEEL_MOTOR2_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake, 0.000, 0.0, 0.0, /*Constants.CANAssignments.ff*/ Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20 , 11.0);
+    private final CANSparkFlexController flywheelMotor = new CANSparkFlexController(Constants.CANAssignments.FLYWHEEL_MOTOR_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake,/*need to tune p, just setting it rlly low bc it might help with oscillating prob */ 0.000, 0.0, 0.1, /*Constants.CANAssignments.ff*/  Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20, 11.0);
+    private final CANSparkFlexController flywheelMotor2 = new CANSparkFlexController(Constants.CANAssignments.FLYWHEEL_MOTOR2_ID, MotorKind.NEO30AMP, configEl, IdleMode.kBrake, 0.000, 0.0, 0.0, /*Constants.CANAssignments.ff*/ Constants.CANAssignments.MAX_VELOCITY_RPM, Constants.CANAssignments.MAX_ACCEL_RPM_S, 20 , 11.0);
 
+    
     private final RelativeEncoder flywheelEncoder;
     private final RelativeEncoder flywheelEncoder2;
 
@@ -82,9 +85,10 @@ public class FlywheelShooter extends SubsystemBase {
         if (targetRPM > 0) {
             double currentRPM = getCurrentRPM();
             //output = Math.min(Math.max(output, 0), 1);
-            flywheelMotor.getClosedLoopController().setReference(targetRPM , ControlType.kVelocity);
-            flywheelMotor2.getClosedLoopController().setReference(-targetRPM, ControlType.kVelocity);
+            // flywheelMotor.getClosedLoopController().setReference(targetRPM , ControlType.kVelocity);
+            // flywheelMotor2.getClosedLoopController().setReference(-targetRPM, ControlType.kVelocity);
             flywheelMotor.getClosedLoopController().setReference(targetRPM, ControlType.kVelocity, ClosedLoopSlot.kSlot0, basePower * 12);
+            flywheelMotor2.getClosedLoopController().setReference(-targetRPM, ControlType.kVelocity, ClosedLoopSlot.kSlot0, -basePower * 12);
             SmartDashboard.putNumber("currentRPM", currentRPM );
             SmartDashboard.putNumber("targetRPM", targetRPM );
             SmartDashboard.putNumber("Flywheel1 Output", flywheelMotor.getAppliedOutput());

@@ -50,8 +50,8 @@ public final class Constants {
       public static final int CLIMB_LEFT_MOTOR_ID = 32;
       public static final int CLIMB_RIGHT_MOTOR_ID = 30;
 
-      public static final int FLYWHEEL_MOTOR_ID = 16;
-      public static final int FLYWHEEL_MOTOR2_ID = 18;
+      public static final int FLYWHEEL_MOTOR_ID = 18;
+      public static final int FLYWHEEL_MOTOR2_ID = 16;
 
       public static final int INDEX_MOTOR_ID = 13;
       public static final int SECONDARY_FLYWHEEL_MOTOR_ID = 41;

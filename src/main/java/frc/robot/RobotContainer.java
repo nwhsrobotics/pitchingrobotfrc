@@ -62,7 +62,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     m_driverController.a().onTrue(
-      Commands.runOnce(() -> flywheelShooter.startFlywheel(40.0), flywheelShooter)//change this to change RPM
+      Commands.runOnce(() -> flywheelShooter.startFlywheel(50), flywheelShooter)//change this to change RPM
     );
 
     m_driverController.a().onFalse(
