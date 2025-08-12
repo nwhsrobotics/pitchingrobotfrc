@@ -3,9 +3,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.DriveBaseSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
 
-public class DriveCommand extends Command{
+public class DriveCommand extends Command {
     private final DriveBaseSubsystem drivebase;
     private final CommandXboxController controller;
 
@@ -31,5 +30,5 @@ public class DriveCommand extends Command{
     public boolean isFinished() {
         return false;
     }
-    
+
 }

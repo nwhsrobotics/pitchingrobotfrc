@@ -13,58 +13,57 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+    public static class OperatorConstants {
+        public static final int kDriverControllerPort = 0;
+    }
+
     public static final class CANAssignments {
 
-      public static final double MIN_PER_HOUR = 60.0;
-      public static final double INCHES_PER_MILE = 5280.0 * 12.0;
-      public static final double INCHES_PER_REV = Math.PI * 8.0; // 8 in pneumatic wheels
+        public static final double MIN_PER_HOUR = 60.0;
+        public static final double INCHES_PER_MILE = 5280.0 * 12.0;
+        public static final double INCHES_PER_REV = Math.PI * 8.0; // 8 in pneumatic wheels
 
-      public static final double MPH_TO_RPM = Constants.CANAssignments.INCHES_PER_MILE / Constants.CANAssignments.MIN_PER_HOUR / Constants.CANAssignments.INCHES_PER_REV;
-
-
-      public static final double MAX_VELOCITY_MPH = 60.0;
-      public static final double MAX_VELOCITY_RPM = MAX_VELOCITY_MPH * MPH_TO_RPM;
-
-      public static final double MAX_ACCEL_RPM_S = 500;
-
-      public static final double ff = 0.0005;
-
-      public static final double OUTPUT_PER_RPM = 0.000179;
+        public static final double MPH_TO_RPM = Constants.CANAssignments.INCHES_PER_MILE / Constants.CANAssignments.MIN_PER_HOUR / Constants.CANAssignments.INCHES_PER_REV;
 
 
-      
+        public static final double MAX_VELOCITY_MPH = 60.0;
+        public static final double MAX_VELOCITY_RPM = MAX_VELOCITY_MPH * MPH_TO_RPM;
 
-      public static final int FRONT_LEFT_STEER_MOTOR_ID = 8;
-      public static final int BACK_LEFT_STEER_MOTOR_ID = 2;
-      public static final int FRONT_RIGHT_STEER_MOTOR_ID = 11;
-      public static final int BACK_RIGHT_STEER_MOTOR_ID = 4;
+        public static final double MAX_ACCEL_RPM_S = 500;
 
-      public static final int FRONT_LEFT_STEER_ABSOLUTE_ENCODER_ID = 22;
-      public static final int BACK_LEFT_STEER_ABSOLUTE_ENCODER_ID = 20;
-      public static final int FRONT_RIGHT_STEER_ABSOLUTE_ENCODER_ID = 21;
-      public static final int BACK_RIGHT_STEER_ABSOLUTE_ENCODER_ID = 23;
+        public static final double ff = 0.0005;
 
-      public static final int CLIMB_LEFT_MOTOR_ID = 32;
-      public static final int CLIMB_RIGHT_MOTOR_ID = 30;
+        public static final double OUTPUT_PER_RPM = 0.000179;
 
-      public static final int FLYWHEEL_MOTOR_ID = 18;
-      public static final int FLYWHEEL_MOTOR2_ID = 16;
 
-      public static final int INDEX_MOTOR_ID = 13;
-      public static final int SECONDARY_FLYWHEEL_MOTOR_ID = 41;
-      public static final int SECONDARY_INDEX_MOTOR_ID = 42;
+        public static final int FRONT_LEFT_STEER_MOTOR_ID = 8;
+        public static final int BACK_LEFT_STEER_MOTOR_ID = 2;
+        public static final int FRONT_RIGHT_STEER_MOTOR_ID = 11;
+        public static final int BACK_RIGHT_STEER_MOTOR_ID = 4;
 
-      public static final int INTAKE_MOTOR_ID = 15;
+        public static final int FRONT_LEFT_STEER_ABSOLUTE_ENCODER_ID = 22;
+        public static final int BACK_LEFT_STEER_ABSOLUTE_ENCODER_ID = 20;
+        public static final int FRONT_RIGHT_STEER_ABSOLUTE_ENCODER_ID = 21;
+        public static final int BACK_RIGHT_STEER_ABSOLUTE_ENCODER_ID = 23;
 
-      // shoulder/wrist not used.
-      // DO NOT INITIALIZE THEIR SUBSYSTEMS.
-      public static final int RIGHT_SHOULDER_MOTOR_ID = 19;
-      public static final int LEFT_SHOULDER_MOTOR_ID = 17;
-      //public static final int WRIST_MOTOR_ID = 16;
-      //public static final int WRIST_INTAKE_ID = 18;
+        public static final int CLIMB_LEFT_MOTOR_ID = 32;
+        public static final int CLIMB_RIGHT_MOTOR_ID = 30;
+
+        public static final int FLYWHEEL_MOTOR_ID = 18;
+        public static final int FLYWHEEL_MOTOR2_ID = 16;
+
+        public static final int INDEX_MOTOR_ID = 13;
+        public static final int SECONDARY_FLYWHEEL_MOTOR_ID = 41;
+        public static final int SECONDARY_INDEX_MOTOR_ID = 42;
+
+        public static final int INTAKE_MOTOR_ID = 15;
+
+        // shoulder/wrist not used.
+        // DO NOT INITIALIZE THEIR SUBSYSTEMS.
+        public static final int RIGHT_SHOULDER_MOTOR_ID = 19;
+        public static final int LEFT_SHOULDER_MOTOR_ID = 17;
+        //public static final int WRIST_MOTOR_ID = 16;
+        //public static final int WRIST_INTAKE_ID = 18;
       /* 
       private final double kP = 0.00025;
       private final double kI = 0.0;
@@ -72,18 +71,20 @@ public final class Constants {
       private final double kFF = 0.00017; // Feedforward gain
       private final double maxRPM = 6000.0;
       */
-      
 
-      public static final int PDU_ID = 24;
-    }
-public static class DriveBase{
-  public static final int LEFT_MOTOR_ID = 1;//change obv
-  public static final int RIGHT_MOTOR_ID = 2;//change obv
-public static final int INDEX_MOTOR_ID = 0;
 
-}
-public static final class LEDs {
-  public static final int PWM_PORT = 8;
-  public static final int LENGTH = 300;
-}
+        public static final int PDU_ID = 24;
     }
+
+    public static class DriveBase {
+        public static final int LEFT_MOTOR_ID = 1;//change obv
+        public static final int RIGHT_MOTOR_ID = 2;//change obv
+        public static final int INDEX_MOTOR_ID = 0;
+
+    }
+
+    public static final class LEDs {
+        public static final int PWM_PORT = 8;
+        public static final int LENGTH = 300;
+    }
+}
