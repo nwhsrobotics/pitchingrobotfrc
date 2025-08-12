@@ -5,11 +5,14 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.DriveCommand;
+import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.commands.Autos;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.FlywheelShooter;
 //import com.revrobotics.RelativeEncoder;
 //import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -31,6 +34,7 @@ import frc.robot.subsystems.FlywheelShooter;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final FlywheelShooter flywheelShooter;
+  public final DriveBaseSubsystem driveBase;
   //private final SparkMax flywheelMotor1 = new SparkMax(1, MotorType.kBrushless);
   //private final SparkMax flywheelMotor2 = new SparkMax(2, MotorType.kBrushless);
   //private final RelativeEncoder encoder1 = flywheelMotor1.getEncoder();
@@ -41,12 +45,20 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
     //flywheelShooter = new FlywheelShooter(flywheelMotor1, encoder1, flywheelMotor2, encoder2); do i use this one?
     flywheelShooter = new FlywheelShooter();
+    driveBase = new DriveBaseSubsystem();
+
+    driveBase.setDefaultCommand(
+      new DriveCommand(driveBase, m_driverController)
+  );
+
+    
 
     configureBindings();
   }
