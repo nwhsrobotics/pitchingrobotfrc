@@ -79,6 +79,7 @@ public final class Constants {
 public static class DriveBase{
   public static final int LEFT_MOTOR_ID = 1;//change obv
   public static final int RIGHT_MOTOR_ID = 2;//change obv
+public static final int INDEX_MOTOR_ID = 0;
 
 }
     }
