@@ -1,69 +1,110 @@
+// package frc.robot.subsystems;
 
+// import edu.wpi.first.wpilibj.AddressableLED;
+// import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+// import edu.wpi.first.wpilibj.LEDPattern;
+// import edu.wpi.first.wpilibj.LEDPattern.GradientType;
+// import edu.wpi.first.wpilibj.util.Color;
+// import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-/*package frc.robot.subsystems;
+// /**
+//  * Addressable LED subsystem with simple state machine and progress-based patterns.
+//  * - IDLE: sparse orange pulses on black.
+//  * - CHARGEUP: progress mask from start to end as shooter spins up.
+//  * - CHARGEDOWN: progress mask from end to start as shooter spins down.
+//  */
+// public class LEDSubsystem extends SubsystemBase {
 
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.LEDPattern;
-import edu.wpi.first.wpilibj.LEDPattern.GradientType;
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import frc.robot.RobotContainer;
+//   public enum LEDState {
+//     IDLE,
+//     CHARGEUP,
+//     CHARGEDOWN
+//   }
 
-public class LEDSubsystem extends SubsystemBase {
+//   private final AddressableLED strip;
+//   private final AddressableLEDBuffer buffer;
+//   private final FlywheelShooter shooter;
 
-  private static LEDState state = LEDState.IDLE; 
-  
-  private static final int LED_LENGTH = 300;
-  private static final AddressableLED strip = new AddressableLED(8);
-  private static final AddressableLEDBuffer buffer = new AddressableLEDBuffer(LED_LENGTH); 
+//   private LEDState state = LEDState.IDLE;
 
-  private static final Color ORANGE = new Color(223, 70, 1); //RBG = (223, 70, 1) 
+//   // Team color
+//   private static final Color ORANGE = new Color(223, 70, 1);
 
+//   // Base patterns
+//   private final LEDPattern idlePattern = LEDPattern.gradient(
+//       GradientType.kDiscontinuous,
+//       Color.kBlack, Color.kBlack, ORANGE,
+//       Color.kBlack, Color.kBlack, ORANGE,
+//       Color.kBlack, Color.kBlack, ORANGE);
 
+//   // Progress-driven masks created in constructor after shooter is assigned
+//   private LEDPattern chargeUpMask;
+//   private LEDPattern chargeDownMask;
 
-  
-  private static final LEDPattern IDLE = LEDPattern.gradient(GradientType.kDiscontinuous, Color.kBlack, Color.kBlack, ORANGE, Color.kBlack, Color.kBlack, ORANGE, Color.kBlack, Color.kBlack, ORANGE);
-  
-  private static final LEDPattern BASE_PATTERN = LEDPattern.gradient(GradientType.kDiscontinuous, Color.kBlack, ORANGE);
-  private static final LEDPattern CHARGEUP = BASE_PATTERN.mask(LEDPattern.progressMaskLayer(() -> FlywheelShooter.rpmNotStatic ));
+//   // Base gradients for charge patterns
+//   private final LEDPattern chargeUpBase = LEDPattern.gradient(GradientType.kDiscontinuous, Color.kBlack, ORANGE);
+//   private final LEDPattern chargeDownBase = LEDPattern.gradient(GradientType.kDiscontinuous, ORANGE, Color.kBlack);
 
-  private static final LEDPattern BASE_PATTERN2 = LEDPattern.gradient(GradientType.kDiscontinuous, ORANGE, Color.kBlack); 
-  private static final LEDPattern CHARGEDOWN = BASE_PATTERN2.mask(LEDPattern.progressMaskLayer(() -> FlywheelShooter.rpmNotStatic ));
-  
-  static {
-    strip.setLength(buffer.getLength());
-    strip.start();
-  }
+//   public LEDSubsystem(int pwmPort, int length, FlywheelShooter shooter) {
+//     this.shooter = shooter;
+//     this.strip = new AddressableLED(pwmPort);
+//     this.buffer = new AddressableLEDBuffer(length);
 
-  public LEDSubsystem() {}
+//     strip.setLength(buffer.getLength());
+//     // Build masks now that shooter is available
+//     this.chargeUpMask = LEDPattern.progressMaskLayer(shooterProgress());
+//     this.chargeDownMask = LEDPattern.progressMaskLayer(() -> 1.0 - clamp01(shooter.getProgress()));
+//     // Initialize off
+//     LEDPattern.kOff.applyTo(buffer, buffer);
+//     strip.setData(buffer);
+//     strip.start();
+//   }
 
-  public enum LEDState {
-    IDLE,
-    CHARGEUP,
-    CHARGEDOWN 
-  }
+//   public void setState(LEDState newState) {
+//     this.state = newState;
+//   }
 
-  public static void setState(LEDState newState) {
-    state = newState;
-    switch (state) {
-        case IDLE -> setPattern(IDLE);
-        case CHARGEUP -> setPattern(CHARGEUP);
-        case CHARGEDOWN -> setPattern(CHARGEDOWN); 
-    }
-  }
+//   private java.util.function.DoubleSupplier shooterProgress() {
+//     return () -> clamp01(shooter.getProgress());
+//   }
 
-  private static void setPattern(LEDPattern pattern) {
-    pattern.applyTo(buffer);
-    strip.setData(buffer);
-  }   
+//   private static double clamp01(double v) {
+//     if (v < 0) return 0;
+//     if (v > 1) return 1;
+//     return v;
+//   }
 
+//   private void applyPattern(LEDPattern pattern) {
+//     pattern.applyTo(buffer, buffer);
+//     strip.setData(buffer);
+//   }
 
+//   @Override
+//   public void periodic() {
+//     // Auto-state logic based on shooter
+//     double target = shooter.getTargetRPM();
+//     double rpm = shooter.getCurrentRPM();
 
-  @Override
-  public void periodic() {
+//     LEDState desired;
+//     if (target > 0.0) {
+//       desired = LEDState.CHARGEUP;
+//     } else if (rpm > 50.0) { // small hysteresis to avoid flicker around 0
+//       desired = LEDState.CHARGEDOWN;
+//     } else {
+//       desired = LEDState.IDLE;
+//     }
+//     state = desired; // follow automatic state; setState() can still be used to override if needed
 
-  }
-
-
-}*/
+//     switch (state) {
+//       case IDLE:
+//         applyPattern(idlePattern);
+//         break;
+//       case CHARGEUP:
+//         applyPattern(chargeUpBase.mask(chargeUpMask));
+//         break;
+//       case CHARGEDOWN:
+//         applyPattern(chargeDownBase.mask(chargeDownMask));
+//         break;
+//     }
+//   }
+// }

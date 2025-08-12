@@ -82,4 +82,8 @@ public static class DriveBase{
 public static final int INDEX_MOTOR_ID = 0;
 
 }
+public static final class LEDs {
+  public static final int PWM_PORT = 8;
+  public static final int LENGTH = 300;
+}
     }

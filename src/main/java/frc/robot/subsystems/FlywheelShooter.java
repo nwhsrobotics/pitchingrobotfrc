@@ -110,6 +110,20 @@ public class FlywheelShooter extends SubsystemBase {
         //return (flywheelEncoder.getVelocity() + Math.abs(flywheelEncoder2.getVelocity())) / 2.0;
     }
 
+    public double getTargetRPM() {
+        return targetRPM;
+    }
+
+    public double getProgress() {
+        double tgt = targetRPM;
+        if (tgt <= 0) return 0.0;
+        double curr = Math.abs(getCurrentRPM());
+        double p = curr / tgt;
+        if (p < 0) return 0.0;
+        if (p > 1) return 1.0;
+        return p;
+    }
+
 
 
     //public boolean isAtSpeed() {
